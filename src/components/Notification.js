@@ -1,11 +1,12 @@
 import { Alert } from 'react-bootstrap';
 
 const Notification = ({message, variant}) => {
-  console.log(variant)
   return (
+    message ? 
     <Alert variant={variant}>
       {message}
     </Alert>
+    : null
   ) 
 }
 

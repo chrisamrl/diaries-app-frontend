@@ -7,6 +7,7 @@ const verifyToken = async () => {
   const userId = window.localStorage.getItem('userId')
 
   const response = await axios.post(`${API_URL}/verifyToken`, { token: token, userId: userId });
+
   return response;
 }
 

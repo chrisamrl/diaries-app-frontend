@@ -1,26 +1,30 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Navigate, Outlet } from 'react-router-dom'
+import LoadingPage from '../pages/LoadingPage';
 import verifyToken from '../services/verifyToken';
 
 const PublicRoutes = () => {
-  const token = window.localStorage.getItem('token')
-  const isValid = useRef(false);
-
+  const [finished, setFinished] = useState(false);
+  const isAuthenticated = useRef(false);
 
   useEffect(() => {
     const validate = async () => {
       try {
         await verifyToken();
-        isValid.current = true;
+        isAuthenticated.current = true;
       } catch (error) {
       }
+      setFinished(true);
     };
     validate();
   }, [])
 
-
   return (
-      !(token && isValid.current) ? <Outlet/> : <Navigate to='/home'/>
+      !finished ? 
+      <LoadingPage /> 
+      : !(isAuthenticated.current) ?
+      <Outlet/>
+      : <Navigate to='/home'/>
     )
 }
 

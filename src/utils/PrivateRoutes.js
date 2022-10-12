@@ -1,26 +1,34 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom'
+import LoadingPage from '../pages/LoadingPage';
 import verifyToken from '../services/verifyToken';
 
 const PrivateRoutes = () => {
-  const token = window.localStorage.getItem('token')
-  const isValid = useRef(true);
+
+  const [finished, setFinished] = useState(false);
+  const isAuthenticated = useRef(false);
+
 
 
   useEffect(() => {
     const validate = async () => {
       try {
         await verifyToken();
+        isAuthenticated.current = true;
       } catch (error) {
-        isValid.current = false;
       }
+      setFinished(true);
     };
     validate();
   }, [])
 
 
   return (
-      token && isValid.current ? <Outlet/> : <Navigate to='/login'/>
+    !finished ? 
+    <LoadingPage /> 
+    : isAuthenticated.current ?
+    <Outlet/>
+    : <Navigate to='/login'/>
     )
 }
 

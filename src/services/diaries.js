@@ -21,7 +21,7 @@ const create = async (newDiary) => {
 }
 
 const update = async (updatedDiary) => {
-  const response = await axios.patch(`${API_URL}/pages`, updatedDiary, config)
+  const response = await axios.patch(`${API_URL}/pages`, updatedDiary, config);
   return response.data;
 }
 

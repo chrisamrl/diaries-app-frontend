@@ -1,3 +1,5 @@
+import LoadingPage from "./LoadingPage";
+
 const Diary = () => {
   return (
     <h3>

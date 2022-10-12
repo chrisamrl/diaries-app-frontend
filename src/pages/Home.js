@@ -1,8 +1,10 @@
+import NavigationBar from "../components/NavigationBar";
+
 const Home = () => {
+  const navTitles = ['Home', 'Pick Random Diary!']
+  const navLinks = ['/home', '/home']
   return (
-    <h3>
-      Home
-    </h3>
+    <NavigationBar navTitles={navTitles} navLinks={navLinks}/>
   )
 }
 
